@@ -6,7 +6,13 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h2>Add new user</h2>
+        <h:form>
+            <h:outputLabel value="name"></h:outputLabel>
+            <br/>
+            <h:inputText value="#{userBean.name}"></h:inputText>
+            <h:commandButton actionListener="#{userBean.saveUser}">Save user</h:commandButton>
+        </h:form>
     </h:body>
 </html>
 
