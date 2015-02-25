@@ -7,12 +7,22 @@
     </h:head>
     <h:body>
         <h2>Add new user</h2>
-        <h:form>
-            <h:outputLabel value="name"></h:outputLabel>
-            <br/>
-            <h:inputText value="#{userBean.name}"></h:inputText>
-            <h:commandButton actionListener="#{userBean.saveUser}">Save user</h:commandButton>
-        </h:form>
+        <div id="addUser">
+            <h:form>
+                <h:outputLabel value="name"></h:outputLabel>
+                <br/>
+                <h:inputText value="#{userBean.name}"></h:inputText>
+                <h:commandButton actionListener="#{userBean.saveUser}">Save user</h:commandButton>
+            </h:form>
+        </div>
+        <div id="userlist">
+            <p:datalist value="#{userBean.allUsers}" var="user" itemlabel itemvalue type="ordered">
+                <f:face name="header">
+                    Users
+                </f:>
+                
+            </p:datalist>
+        </div>
     </h:body>
 </html>
 

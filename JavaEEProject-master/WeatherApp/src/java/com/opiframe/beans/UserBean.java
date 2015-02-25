@@ -3,34 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.opijotain.beans;
+package com.opiframe.beans;
 
+
+import com.opiframe.entity.OpiframeUser;
+import com.opiframe.jpa.OpiframeUserJpaController;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 
 /**
  *
- * @author Ohjelmistokehitys
+ * @author Opiframe
  */
 @ManagedBean
 @RequestScoped
-public class userBean {
-    
-    @PersistenceContext
-    EntityManager emf;
+public class UserBean {
+
+    @PersistenceContext(unitName="WeatherAppPU")
+    EntityManager em;
     @Resource
     UserTransaction utx;
     
     private String name;
-
-    /**
-     * Creates a new instance of userBean
-     */
-    public userBean() {
+    
+    public UserBean() {
     }
 
     public String getName() {
@@ -41,21 +44,16 @@ public class userBean {
         this.name = name;
     }
     
-    public void saveUser()
+    public void saveUser(ActionEvent e)
     {
-        OwnersJpaController jpa = new opiframeUserJpaController(utx,emf.getEntityManagerFactory());
-        opiframeUser temp = new opiframeUser();
-        temp.setUser(this.getName());
+        OpiframeUserJpaController jpa = new OpiframeUserJpaController(utx,em.getEntityManagerFactory());
+        OpiframeUser temp = new OpiframeUser();
+        temp.setName(this.getName());
         
-        try{
-            jpa.create(name);
-        }catch{
+        try {
+            jpa.create(temp);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-    
-    public list<OpiframeUser> getAllUsers(){
-        OpiframeUserJpaController jpa = new OpiframeUserJpaController(utx,emfEntityManagerFactory);
-        return jpa.findOpiframeUserEntities();
     }
 }
